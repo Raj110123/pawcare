@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ animal.name }} - Rescue Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .animal-info {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2C3E50;
+        }
+        .animal-photo {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .report {
+            margin-top: 20px;
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .report p {
+            margin: 5px 0;
+        }
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ animal.name }} - Animal Details</h1>
+    
+    <div class="animal-info">
+        <p><strong>Species:</strong> {{ animal.species }}</p>
+        <p><strong>Age:</strong> {{ animal.age }}</p>
+        
+        {% if animal.photo %}
+            <img class="animal-photo" src="{{ animal.photo.url }}" alt="{{ animal.name }}">
+        {% else %}
+            <p>No photo available</p>
+        {% endif %}
+        
+        <h2>Rescue Report</h2>
+        {% if reports %}
+            {% for report in reports %}
+                <div class="report">
+                    <p><strong>Status:</strong> {{ report.status }}</p>
+                    <p><strong>Description:</strong> {{ report.description }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No rescue report available for this animal.</p>
+        {% endif %}
+    </div>
+    
+    <a class="back-link" href="{% url 'animal_list' %}">Back to Animal List</a>
+</body>
+</html>

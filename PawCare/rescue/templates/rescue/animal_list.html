@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animals in Rescue</title>
+    <style>
+        /* Basic styling for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light background color */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Styling the header */
+        h1 {
+            background-color: #ff6347; /* Tomato color */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        /* Navbar styling */
+        nav {
+            background-color: #4682b4; /* SteelBlue color */
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 15px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ff6347; /* Tomato color on hover */
+        }
+
+        /* Animal list styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li {
+            background-color: #fff;
+            border: 2px solid #4682b4; /* SteelBlue border */
+            border-radius: 10px;
+            margin: 10px;
+            padding: 15px;
+            width: 250px; /* Control width for the cards */
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        li a {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6347; /* Tomato color for names */
+            text-decoration: none;
+        }
+
+        li a:hover {
+            color: #4682b4; /* Change to SteelBlue color on hover */
+        }
+
+        /* Styling the animal photo */
+        .animal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .animal img:hover {
+            transform: scale(1.1); /* Slight zoom effect on hover */
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            li {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Animals</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <!-- Header Section -->
+    <h1>Rescued Animals</h1>
+
+    <!-- Animal List Section -->
+    <ul>
+        {% for animal in animals %}
+            <li>
+                <a href="{% url 'animal_detail' animal.pk %}">
+                    {{ animal.name }} ({{ animal.species }})
+                </a>
+                <div class="animal">
+                    <h2 style="color: #4682b4; font-weight: bold;">{{ animal.name }}</h2>
+                    {% if animal.photo %}
+                        <img src="{{ animal.photo.url }}" alt="{{ animal.name }}">
+                    {% else %}
+                        <p>No photo available</p>
+                    {% endif %}
+                </div>
+            </li>
+        {% empty %}
+            <li>No animals available right now.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
